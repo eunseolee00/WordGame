@@ -7,6 +7,10 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import java.util.*
+import android.widget.LinearLayout
+import android.widget.TextView
+import kotlin.collections.ArrayList
+
 
 class GameActivity : AppCompatActivity() {
     var timer: TextView? = null
@@ -17,6 +21,7 @@ class GameActivity : AppCompatActivity() {
     var answerButton: Button? = null
     var nextButton: Button? = null
     var linearLayout: LinearLayout? = null
+    lateinit var answerLayout : LinearLayout
     var start = false
     var howLong = 60000 //I put it to 1 min for now, but should we change the time depending on the difficulty?
     var correct = 0
@@ -25,6 +30,15 @@ class GameActivity : AppCompatActivity() {
     var diff = 0
     var letters = 0
     var guessesNum = 0
+    var correctAnswer = ""
+    var userAnswer = ""
+
+    //for test; substitute later?
+    val easyWords = arrayOf("Moon", "Hand", "Seed", "Deal", "Coke")
+    val midWords = arrayOf("Pasta", "Event", "Video", "Sport")
+    val hardWords = arrayOf("Beauty", "Report", "Kotlin", "Source")
+
+    var list = ArrayList<TextView>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +56,52 @@ class GameActivity : AppCompatActivity() {
         answerButton = findViewById(R.id.answerButton)
         nextButton = findViewById(R.id.nextButton)
         linearLayout = findViewById(R.id.linearLayout)
+        answerLayout = findViewById(R.id.answerLetters)
 
         numOfGuesses(diff)
+        generateWords(diff)
         gameTimer()
     }//onCreate
+
+    fun generateLetter(l : Char, n: Int){
+        val idWithIndex : String = l + n.toString();
+        val txtName = TextView(this)
+        txtName.id = n
+        txtName.text = l.toString()
+        txtName.textSize = 50F
+
+        list.add(txtName)
+
+        answerLayout.addView(txtName);
+        txtName.visibility = View.INVISIBLE
+
+    }
+
+    fun generateWords(difficulty: Int){
+        val rand = Random()
+        if(difficulty == 0){
+            correctAnswer = easyWords[rand.nextInt(easyWords.size - 1)]
+        }else if (difficulty == 1){
+            correctAnswer = midWords[rand.nextInt(midWords.size - 1)]
+        }else if (difficulty == 2){
+            correctAnswer = hardWords[rand.nextInt(hardWords.size - 1)]
+        }
+        correctAnswer.forEachIndexed() { i, char ->generateLetter(char, i) }
+    }
+
+    fun checkUserAnswer(){
+        userAnswer = guess?.text.toString()
+        if(userAnswer.equals(correctAnswer, ignoreCase = true)){
+            Toast.makeText(applicationContext, "Correct!", Toast.LENGTH_SHORT ).show()
+        }
+        correctAnswer.forEachIndexed(){ i, char ->
+            userAnswer.forEach { userChar ->
+                if (char.equals(userChar, ignoreCase = true)){
+                    list[i].visibility = View.VISIBLE
+                }
+            }
+        }
+    }
 
     fun numOfGuesses(difficulty : Int) {
         if (difficulty == 0) {
@@ -95,6 +151,7 @@ class GameActivity : AppCompatActivity() {
 
     fun check (view : View) {
         //TO DO
+        checkUserAnswer()
     }
 
     fun hide (view : View) {
