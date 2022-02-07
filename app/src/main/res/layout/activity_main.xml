@@ -8,46 +8,66 @@
     android:backgroundTint="#F9F9F9"
     tools:context=".MainActivity">
 
-    <RadioButton
-        android:id="@+id/hardLevel"
-        android:layout_width="355dp"
-        android:layout_height="81dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/background"
-        android:backgroundTint="#D6E2E9"
-        android:buttonTint="#99C1DE"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="HARD (3 GUESSES)"
-        android:textAlignment="textStart"
-        android:textColor="#000000"
-        android:textSize="24sp"
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="354dp"
+        android:layout_height="369dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mediumLevel" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
 
-    <RadioButton
-        android:id="@+id/mediumLevel"
-        android:layout_width="355dp"
-        android:layout_height="81dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/background"
-        android:backgroundTint="#8DD6E2E9"
-        android:buttonTint="#9E99C1DE"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="MEDIUM (4 Guesses)"
-        android:textAlignment="textStart"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/easyLevel" />
+        <RadioButton
+            android:id="@+id/easyLevel"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/background"
+            android:backgroundTint="#68BCD4E6"
+            android:buttonTint="#99C1DE"
+            android:checked="true"
+            android:fontFamily="sans-serif-smallcaps"
+            android:onClick="howHard"
+            android:text="Easy (5 Guesses)"
+            android:textColor="#151515"
+            android:textSize="35sp" />
+
+        <RadioButton
+            android:id="@+id/mediumLevel"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/background"
+            android:backgroundTint="#A4BCD4E6"
+            android:buttonTint="#99C1DE"
+            android:fontFamily="sans-serif-smallcaps"
+            android:onClick="howHard"
+            android:text="Medium (4 Guesses)"
+            android:textColor="#151414"
+            android:textSize="35sp" />
+
+        <RadioButton
+            android:id="@+id/hardLevel"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/background"
+            android:backgroundTint="#BCD4E6"
+            android:buttonTint="#99C1DE"
+            android:fontFamily="sans-serif-smallcaps"
+            android:onClick="howHard"
+            android:text="Hard (3 Guesses)"
+            android:textColor="#0E0E0E"
+            android:textSize="35sp" />
+    </RadioGroup>
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="146dp"
         android:layout_height="41dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="sans-serif-smallcaps"
         android:text="Levels"
         android:textAlignment="textStart"
@@ -55,7 +75,7 @@
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintHorizontal_bias="0.109"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -75,36 +95,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioButton
-        android:id="@+id/easyLevel"
-        android:layout_width="355dp"
-        android:layout_height="81dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/background"
-        android:backgroundTint="#52D6E2E9"
-        android:buttonTint="#99C1DE"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="EASY (5 Guesses)"
-        android:textAlignment="textStart"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
         android:id="@+id/startButton"
         android:layout_width="161dp"
         android:layout_height="55dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="18dp"
         android:backgroundTint="#FAD2E1"
         android:fontFamily="sans-serif-smallcaps"
+        android:onClick="playGame"
         android:text="Start"
         android:textColor="#0B0B0B"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hardLevel" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

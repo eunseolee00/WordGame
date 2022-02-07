@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:onClick="hide"
     android:layout_height="match_parent"
     tools:context=".GameActivity">
 
@@ -59,6 +60,7 @@
         android:layout_marginTop="24dp"
         android:backgroundTint="#FAD2E1"
         android:fontFamily="sans-serif-smallcaps"
+        android:onClick="check"
         android:text="Check"
         android:textColor="#000000"
         android:textSize="20sp"
@@ -71,7 +73,7 @@
         android:id="@+id/answerButton"
         android:layout_width="121dp"
         android:layout_height="54dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="141dp"
         android:layout_marginBottom="10dp"
@@ -82,6 +84,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/nextButton"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/score"
         app:layout_constraintVertical_bias="0.647" />
@@ -91,7 +94,7 @@
         android:layout_width="121dp"
         android:layout_height="54dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="25dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="#C5DEDD"
         android:fontFamily="sans-serif-smallcaps"
@@ -100,6 +103,8 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/answerButton"
         app:layout_constraintTop_toBottomOf="@+id/score"
         app:layout_constraintVertical_bias="0.647" />
 
