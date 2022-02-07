@@ -62,7 +62,8 @@ class GameActivity : AppCompatActivity() {
 
         numOfGuesses(diff)
         displayGuesses(guessesNum)
-        generateWords(diff)
+        displayScore(correct)
+        generateInitial(diff)
         howLong = time
         gameTimer()
     }//onCreate
@@ -81,7 +82,7 @@ class GameActivity : AppCompatActivity() {
 
     }
 
-    fun generateWords(difficulty: Int){
+    fun generateInitial(difficulty: Int){
         val rand = Random()
         if(difficulty == 0){
             correctAnswer = easyWords[rand.nextInt(easyWords.size - 1)]
@@ -91,6 +92,7 @@ class GameActivity : AppCompatActivity() {
             correctAnswer = hardWords[rand.nextInt(hardWords.size - 1)]
         }
         correctAnswer.forEachIndexed() { i, char ->generateLetter(char, i) }
+        totalProblems++
     }
 
     fun checkUserAnswer(){
@@ -100,12 +102,13 @@ class GameActivity : AppCompatActivity() {
         }else{
             if(!correctGuessMade){
                 guessesNum --
-                guessesLeft!!.text = "Guesses Left: " + guessesNum
+                displayGuesses(guessesNum)
             }
             if(userAnswer.equals(correctAnswer, ignoreCase = true) && !correctGuessMade){
                 Toast.makeText(applicationContext, "Correct!", Toast.LENGTH_SHORT ).show()
                 correctGuessMade = true
                 correct++
+                displayScore(correct)
             }
             correctAnswer.forEachIndexed(){ i, char ->
                 userAnswer.forEach { userChar ->
@@ -116,19 +119,13 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-        if (guessesNum == 0) {
-            Toast.makeText(applicationContext, "OUT OF GUESSES!", Toast.LENGTH_SHORT ).show()
-
-        }
-        else {
-            guessesNum--
-            displayGuesses(guessesNum)
-        }
     }
 
     fun next(view: View){
         newWord(diff)
         numOfGuesses(diff)
+        displayGuesses(guessesNum)
+        totalProblems ++
         correctGuessMade = false
     }
 
@@ -172,6 +169,10 @@ class GameActivity : AppCompatActivity() {
 
     fun displayGuesses(guesses : Int) {
         guessesLeft!!.text = "Guesses Left: " + guesses
+    }
+
+    fun displayScore(scr: Int){
+        score!!.text = "Score: " + scr
     }
 
     fun updateTimer(secondsLeft : Int) {

@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.thrity -> time = 30000
+            R.id.thirty -> time = 30000
             R.id.one -> time = 60000
             R.id.two -> time = 120000
         }
