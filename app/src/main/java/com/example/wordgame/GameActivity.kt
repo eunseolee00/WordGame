@@ -24,12 +24,12 @@ class GameActivity : AppCompatActivity() {
     var linearLayout: LinearLayout? = null
     lateinit var answerLayout : LinearLayout
     var start = false
-    var howLong = 0
+    var howLong = 60000
     var correct = 0
     var totalProblems = 0
     var flag = true
     var diff = 0
-    var time = 0
+    var time = 60000
     var guessesNum = 0
     var correctAnswer = ""
     var userAnswer = ""

@@ -12,7 +12,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     var difficulty = 0
-    var time = 4
+    var time = 60000
     var checked : RadioButton? = null
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
