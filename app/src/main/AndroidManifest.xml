@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WordGame">
         <activity
+            android:name=".EndActivity"
+            android:exported="false" />
+        <activity
             android:name=".GameActivity"
             android:exported="false" />
         <activity

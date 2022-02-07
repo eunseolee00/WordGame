@@ -59,6 +59,7 @@ class GameActivity : AppCompatActivity() {
         answerLayout = findViewById(R.id.answerLetters)
 
         numOfGuesses(diff)
+        displayGuesses(guessesNum)
         generateWords(diff)
         gameTimer()
     }//onCreate
@@ -101,21 +102,32 @@ class GameActivity : AppCompatActivity() {
                 }
             }
         }
+
+        if (guessesNum == 0) {
+            Toast.makeText(applicationContext, "OUT OF GUESSES!", Toast.LENGTH_SHORT ).show()
+            n
+
+        }
+        else {
+            guessesNum--
+            displayGuesses(guessesNum)
+        }
     }
 
     fun numOfGuesses(difficulty : Int) {
         if (difficulty == 0) {
             guessesNum = 5
-            guessesLeft!!.text = "Guesses Left: " + guessesNum
         }
         else if (difficulty == 1) {
             guessesNum = 4
-            guessesLeft!!.text = "Guesses Left: " + guessesNum
         }
         else if (difficulty == 2) {
             guessesNum = 3
-            guessesLeft!!.text = "Guesses Left: " + guessesNum
         }
+    }
+
+    fun displayGuesses(guesses : Int) {
+        guessesLeft!!.text = "Guesses Left: " + guesses
     }
 
     fun updateTimer(secondsLeft : Int) {
@@ -152,7 +164,7 @@ class GameActivity : AppCompatActivity() {
     fun check (view : View) {
         //TO DO
         checkUserAnswer()
-    }
+    }//check
 
     fun hide (view : View) {
 
