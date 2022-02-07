@@ -30,7 +30,7 @@
             android:checked="true"
             android:fontFamily="sans-serif-smallcaps"
             android:onClick="howHard"
-            android:text="Easy (5 Guesses)"
+            android:text="Easy (3 Letters)"
             android:textColor="#151515"
             android:textSize="35sp" />
 
@@ -44,7 +44,7 @@
             android:buttonTint="#99C1DE"
             android:fontFamily="sans-serif-smallcaps"
             android:onClick="howHard"
-            android:text="Medium (4 Guesses)"
+            android:text="Medium (4 Letters)"
             android:textColor="#151414"
             android:textSize="35sp" />
 
@@ -58,7 +58,7 @@
             android:buttonTint="#99C1DE"
             android:fontFamily="sans-serif-smallcaps"
             android:onClick="howHard"
-            android:text="Hard (3 Guesses)"
+            android:text="Hard (5+ Letters)"
             android:textColor="#0E0E0E"
             android:textSize="35sp" />
     </RadioGroup>
