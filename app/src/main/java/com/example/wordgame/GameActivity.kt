@@ -119,7 +119,6 @@ class GameActivity : AppCompatActivity() {
         if (guessesNum == 0) {
             Toast.makeText(applicationContext, "OUT OF GUESSES!", Toast.LENGTH_SHORT ).show()
 
-
         }
         else {
             guessesNum--
