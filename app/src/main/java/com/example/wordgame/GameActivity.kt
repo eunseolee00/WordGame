@@ -32,6 +32,7 @@ class GameActivity : AppCompatActivity() {
     var guessesNum = 0
     var correctAnswer = ""
     var userAnswer = ""
+    var correctGuessMade = false
 
     //for test; substitute later?
     val easyWords = arrayOf("Moon", "Hand", "Seed", "Deal", "Coke")
@@ -91,16 +92,58 @@ class GameActivity : AppCompatActivity() {
 
     fun checkUserAnswer(){
         userAnswer = guess?.text.toString()
-        if(userAnswer.equals(correctAnswer, ignoreCase = true)){
-            Toast.makeText(applicationContext, "Correct!", Toast.LENGTH_SHORT ).show()
-        }
-        correctAnswer.forEachIndexed(){ i, char ->
-            userAnswer.forEach { userChar ->
-                if (char.equals(userChar, ignoreCase = true)){
-                    list[i].visibility = View.VISIBLE
+        if(guessesNum == 0){
+            Toast.makeText(applicationContext, "out of guesses!", Toast.LENGTH_SHORT ).show()
+        }else{
+            if(!correctGuessMade){
+                guessesNum --
+                guessesLeft!!.text = "Guesses Left: " + guessesNum
+            }
+            if(userAnswer.equals(correctAnswer, ignoreCase = true) && !correctGuessMade){
+                Toast.makeText(applicationContext, "Correct!", Toast.LENGTH_SHORT ).show()
+                correctGuessMade = true
+                correct++
+            }
+            correctAnswer.forEachIndexed(){ i, char ->
+                userAnswer.forEach { userChar ->
+                    if (char.equals(userChar, ignoreCase = true)){
+                        list[i].visibility = View.VISIBLE
+                    }
                 }
             }
         }
+    }
+
+    fun next(view: View){
+        newWord(diff)
+        numOfGuesses(diff)
+        correctGuessMade = false
+    }
+
+    fun newWord(difficulty: Int){
+        val rand = Random()
+        if(difficulty == 0){
+            correctAnswer = easyWords[rand.nextInt(easyWords.size - 1)]
+        }else if (difficulty == 1){
+            correctAnswer = midWords[rand.nextInt(midWords.size - 1)]
+        }else if (difficulty == 2){
+            correctAnswer = hardWords[rand.nextInt(hardWords.size - 1)]
+        }
+        correctAnswer.forEachIndexed(){i, char ->
+            list[i].text = char.toString()
+            list[i].visibility = View.INVISIBLE
+        }
+    }
+
+    fun answer(view: View){
+        answer()
+    }
+
+    fun answer(){
+        list.forEach(){
+            txt -> txt.visibility = View.VISIBLE
+        }
+        Toast.makeText(applicationContext, "You give up!", Toast.LENGTH_SHORT ).show()
     }
 
     fun numOfGuesses(difficulty : Int) {
