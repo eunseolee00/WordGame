@@ -2,12 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/four"
+        android:id="@+id/thrity"
         android:iconTint="#454545"
-        android:title="4 Letter Word"></item>
-    <item android:title="5 Letter Word"
-        android:id="@+id/five"> </item>
-    <item android:title="6 Letter Word"
-        android:id="@+id/six"> </item>
+        android:title="30 Seconds"></item>
+    <item
+        android:id="@+id/one"
+        android:title="1 Minute"></item>
+    <item
+        android:id="@+id/two"
+        android:title="2 Minutes"></item>
 
 </menu>

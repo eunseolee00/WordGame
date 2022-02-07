@@ -1,5 +1,6 @@
 package com.example.wordgame
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -23,12 +24,12 @@ class GameActivity : AppCompatActivity() {
     var linearLayout: LinearLayout? = null
     lateinit var answerLayout : LinearLayout
     var start = false
-    var howLong = 60000 //I put it to 1 min for now, but should we change the time depending on the difficulty?
+    var howLong = 0
     var correct = 0
     var totalProblems = 0
     var flag = true
     var diff = 0
-    var letters = 0
+    var time = 0
     var guessesNum = 0
     var correctAnswer = ""
     var userAnswer = ""
@@ -46,7 +47,7 @@ class GameActivity : AppCompatActivity() {
         val bundle: Bundle? = intent.extras
 
         diff = intent.getIntExtra("Diff", -1)
-        letters = intent.getIntExtra("Letters", 1)
+        time = intent.getIntExtra("Time", 60000)
 
         timer = findViewById(R.id.timer)
         guess = findViewById(R.id.guess)
@@ -61,6 +62,7 @@ class GameActivity : AppCompatActivity() {
         numOfGuesses(diff)
         displayGuesses(guessesNum)
         generateWords(diff)
+        howLong = time
         gameTimer()
     }//onCreate
 
@@ -105,7 +107,7 @@ class GameActivity : AppCompatActivity() {
 
         if (guessesNum == 0) {
             Toast.makeText(applicationContext, "OUT OF GUESSES!", Toast.LENGTH_SHORT ).show()
-            n
+
 
         }
         else {
@@ -157,6 +159,7 @@ class GameActivity : AppCompatActivity() {
                             totalProblems + " Correct", Toast.LENGTH_LONG
                 ).show()
                 start = false;
+                endGame()
             }//onFinish
         }.start() //CountDown
     }//gameTimer
@@ -165,6 +168,12 @@ class GameActivity : AppCompatActivity() {
         //TO DO
         checkUserAnswer()
     }//check
+
+    fun endGame() {
+        val intent = Intent(this, EndActivity::class.java)
+        intent.putExtra("score", correct)
+        startActivity(intent)
+    }//endGame
 
     fun hide (view : View) {
 

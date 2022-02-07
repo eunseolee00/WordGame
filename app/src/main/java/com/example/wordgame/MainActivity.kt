@@ -12,7 +12,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     var difficulty = 0
-    var letters = 4
+    var time = 4
     var checked : RadioButton? = null
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -23,16 +23,16 @@ class MainActivity : AppCompatActivity() {
 
     fun playGame(view: View?) {
         val intent = Intent(this, GameActivity::class.java)
-        intent.putExtra("Letters", letters)
+        intent.putExtra("Time", time)
         intent.putExtra("Diff", difficulty)
         startActivity(intent)
     }//playGame
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.four -> letters = 4
-            R.id.five -> letters = 5
-            R.id.six -> letters = 6
+            R.id.thrity -> time = 30000
+            R.id.one -> time = 60000
+            R.id.two -> time = 120000
         }
         return true
     } //end onOptionsItemSelected
