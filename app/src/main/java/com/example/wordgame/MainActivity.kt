@@ -1,6 +1,7 @@
 package com.example.wordgame
 
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     var difficulty = 0
     var time = 60000
     var checked : RadioButton? = null
+    lateinit var mediaPlayer: MediaPlayer
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater: MenuInflater = menuInflater
@@ -22,6 +24,8 @@ class MainActivity : AppCompatActivity() {
     }//onCreateOptionsMenu
 
     fun playGame(view: View?) {
+        mediaPlayer = MediaPlayer.create(this, R.raw.start)
+        mediaPlayer.start()
         val intent = Intent(this, GameActivity::class.java)
         intent.putExtra("Time", time)
         intent.putExtra("Diff", difficulty)

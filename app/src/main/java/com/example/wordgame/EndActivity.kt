@@ -1,6 +1,7 @@
 package com.example.wordgame
 
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.TextView
 
 class EndActivity : AppCompatActivity() {
 
+    lateinit var mediaPlayer: MediaPlayer
     var score : Int = 0
     lateinit var result : TextView
 
@@ -18,8 +20,14 @@ class EndActivity : AppCompatActivity() {
         result = findViewById(R.id.finalScore)
         score = intent.getIntExtra("score",0)
 
+        play()
         displayScore(score)
 
+    }
+
+    fun play() {
+        mediaPlayer = MediaPlayer.create(this, R.raw.finish)
+        mediaPlayer.start()
     }
 
     fun displayScore(scr: Int){

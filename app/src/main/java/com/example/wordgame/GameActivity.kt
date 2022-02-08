@@ -5,6 +5,7 @@ import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -36,6 +37,7 @@ class GameActivity : AppCompatActivity() {
     var userAnswer = ""
     var correctGuessMade = false
     lateinit var mediaPlayer: MediaPlayer
+    lateinit var duringMusic: MediaPlayer
 
     //for test; substitute later?
     val easyWords = arrayOf("Moon", "Hand", "Seed", "Deal", "Coke")
@@ -68,6 +70,7 @@ class GameActivity : AppCompatActivity() {
         generateInitial(diff)
         howLong = time
         gameTimer()
+
     }//onCreate
 
     fun generateLetter(l : Char, n: Int){
@@ -103,7 +106,12 @@ class GameActivity : AppCompatActivity() {
             mediaPlayer = MediaPlayer.create(this, R.raw.loser)
             mediaPlayer.start()
             Toast.makeText(applicationContext, "out of guesses!", Toast.LENGTH_SHORT ).show()
+
+            answer()
+
         }else{
+            mediaPlayer = MediaPlayer.create(this, R.raw.next)
+            mediaPlayer.start()
             if(!correctGuessMade){
                 guessesNum --
                 displayGuesses(guessesNum)
@@ -115,6 +123,7 @@ class GameActivity : AppCompatActivity() {
                 displayScore(correct)
                 mediaPlayer = MediaPlayer.create(this, R.raw.correct)
                 mediaPlayer.start()
+                Handler().postDelayed(this::nextQ, 1600)
             }
             correctAnswer.forEachIndexed(){ i, char ->
                 userAnswer.forEach { userChar ->
@@ -127,12 +136,23 @@ class GameActivity : AppCompatActivity() {
 
     }
 
-    fun next(view: View){
+    fun nextQ() {
         newWord(diff)
         numOfGuesses(diff)
         displayGuesses(guessesNum)
         totalProblems ++
         correctGuessMade = false
+    }
+
+    fun next(view: View){
+        mediaPlayer = MediaPlayer.create(this, R.raw.next)
+        mediaPlayer.start()
+//        newWord(diff)
+//        numOfGuesses(diff)
+//        displayGuesses(guessesNum)
+//        totalProblems ++
+//        correctGuessMade = false
+        nextQ()
     }
 
     fun newWord(difficulty: Int){
@@ -151,16 +171,19 @@ class GameActivity : AppCompatActivity() {
     }
 
     fun answer(view: View){
+        mediaPlayer = MediaPlayer.create(this, R.raw.answer)
+        mediaPlayer.start()
+        Toast.makeText(applicationContext, "You give up!", Toast.LENGTH_SHORT ).show()
         answer()
     }
 
     fun answer(){
-        mediaPlayer = MediaPlayer.create(this, R.raw.answer)
-        mediaPlayer.start()
+
         list.forEach(){
             txt -> txt.visibility = View.VISIBLE
         }
-        Toast.makeText(applicationContext, "You give up!", Toast.LENGTH_SHORT ).show()
+
+        Handler().postDelayed(this::nextQ, 1600)
     }
 
     fun numOfGuesses(difficulty : Int) {
@@ -196,9 +219,11 @@ class GameActivity : AppCompatActivity() {
     fun gameTimer() {
         start = true
         timer!!.text = "1:00"
-
+        duringMusic = MediaPlayer.create(this, R.raw.during)
+        duringMusic.isLooping = true
         object : CountDownTimer( howLong.toLong(), 1000) {
             override fun onTick(p0: Long) {
+                duringMusic.start()
                 updateTimer((p0 / 1000).toInt())
                 howLong -= 1000
             }//onTick
@@ -209,9 +234,9 @@ class GameActivity : AppCompatActivity() {
                     getApplicationContext(), "Your got " + correct + " out of " +
                             totalProblems + " Correct", Toast.LENGTH_LONG
                 ).show()
+                duringMusic.isLooping = false
+                duringMusic.stop()
                 start = false;
-                mediaPlayer = MediaPlayer.create(this, R.raw.finishGame)
-                mediaPlayer.start()
                 endGame()
             }//onFinish
         }.start() //CountDown
@@ -239,6 +264,11 @@ class GameActivity : AppCompatActivity() {
         }
         flag = !flag
     }//hide
+
+    fun clear(view : View) {
+        guess?.setText("")
+    }
+
 
 
 }//GameActivity
