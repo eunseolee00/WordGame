@@ -40,9 +40,26 @@ class GameActivity : AppCompatActivity() {
     lateinit var duringMusic: MediaPlayer
 
     //for test; substitute later?
-    val easyWords = arrayOf("Moon", "Hand", "Seed", "Deal", "Coke")
-    val midWords = arrayOf("Pasta", "Event", "Video", "Sport")
-    val hardWords = arrayOf("Beauty", "Report", "Kotlin", "Source")
+    val easyWords = arrayOf("nun", "cap", "ask", "row", "top", "bee", "hot",
+        "air","aid","dry","sin","fat","nut","fur", "egg","jam", "rib", "inn",
+        "pot", "red", "old","sip","era","boy", "kit", "mug", "arm", "pie",
+        "pen", "lid", "lip", "gun", "ton", "sit", "kid", "gem", "bet", "nap",
+        "map","see", "rob", "car", "ant", "cat", "buy", "sea", "ban", "van",
+        "fog","due")
+    val midWords = arrayOf("joke", "ride", "drag", "corn", "mist", "hall",
+        "prey", "whip", "pipe", "wait", "core", "wind", "ally", "scan",
+        "rate", "west", "horn", "raid", "mail", "free", "debt", "toss",
+        "camp", "desk", "pure", "sign", "fire", "hang", "mill", "ruin",
+        "flat", "size", "hurl", "leak", "week", "slab", "cake"
+        , "cook", "ward", "herd", "lazy", "hole", "navy", "spin", "snap",
+        "drum", "wall", "book", "cute", "glow")
+    val hardWords = arrayOf("cheat", "drink", "smart", "steel", "shift",
+        "leave", "begin", "wheat", "enemy", "grave", "asset", "ranch",
+        "stake", "smash", "image", "flesh", "crowd", "trail", "lover",
+        "debut", "stick", "gaffe", "drown", "petty", "enter", "novel",
+        "truck", "guest", "thigh", "draft", "ferry", "drift", "tract",
+        "theft", "trick", "catch", "serve", "taste", "throw", "forum",
+        "glory", "truth", "color", "score", "funny", "count", "index", "brand")
 
     var list = ArrayList<TextView>()
 
@@ -85,7 +102,7 @@ class GameActivity : AppCompatActivity() {
         answerLayout.addView(txtName);
         txtName.visibility = View.INVISIBLE
 
-    }
+    }//generateLetter
 
     fun generateInitial(difficulty: Int){
         val rand = Random()
@@ -98,43 +115,47 @@ class GameActivity : AppCompatActivity() {
         }
         correctAnswer.forEachIndexed() { i, char ->generateLetter(char, i) }
         totalProblems++
-    }
+    }//generateInitial
 
     fun checkUserAnswer(){
         userAnswer = guess?.text.toString()
-        if(guessesNum == 0){
-            mediaPlayer = MediaPlayer.create(this, R.raw.loser)
-            mediaPlayer.start()
-            Toast.makeText(applicationContext, "out of guesses!", Toast.LENGTH_SHORT ).show()
-
-            answer()
-
+        if(userAnswer.toString().length > list.size)
+        {
+            Toast.makeText(applicationContext, "WORD TOO LONG!", Toast.LENGTH_SHORT ).show()
         }else{
-            mediaPlayer = MediaPlayer.create(this, R.raw.next)
-            mediaPlayer.start()
-            if(!correctGuessMade){
-                guessesNum --
-                displayGuesses(guessesNum)
-            }
-            if(userAnswer.equals(correctAnswer, ignoreCase = true) && !correctGuessMade){
-                Toast.makeText(applicationContext, "Correct!", Toast.LENGTH_SHORT ).show()
-                correctGuessMade = true
-                correct++
-                displayScore(correct)
-                mediaPlayer = MediaPlayer.create(this, R.raw.correct)
+            if(guessesNum == 0){
+                mediaPlayer = MediaPlayer.create(this, R.raw.loser)
                 mediaPlayer.start()
-                Handler().postDelayed(this::nextQ, 1600)
-            }
-            correctAnswer.forEachIndexed(){ i, char ->
-                userAnswer.forEach { userChar ->
-                    if (char.equals(userChar, ignoreCase = true)){
-                        list[i].visibility = View.VISIBLE
+                Toast.makeText(applicationContext, "OUT OF GUESSES!", Toast.LENGTH_SHORT ).show()
+
+                answer()
+
+            }else{
+                mediaPlayer = MediaPlayer.create(this, R.raw.next)
+                mediaPlayer.start()
+                if(!correctGuessMade){
+                    guessesNum --
+                    displayGuesses(guessesNum)
+                }
+                if(userAnswer.equals(correctAnswer, ignoreCase = true) && !correctGuessMade){
+                    Toast.makeText(applicationContext, "Correct!", Toast.LENGTH_SHORT ).show()
+                    correctGuessMade = true
+                    correct++
+                    displayScore(correct)
+                    mediaPlayer = MediaPlayer.create(this, R.raw.correct)
+                    mediaPlayer.start()
+                    Handler().postDelayed(this::nextQ, 1600)
+                }
+                correctAnswer.forEachIndexed(){ i, char ->
+                    userAnswer.forEach { userChar ->
+                        if (char.equals(userChar, ignoreCase = true)){
+                            list[i].visibility = View.VISIBLE
+                        }
                     }
                 }
             }
         }
-
-    }
+    }//checkUserAnswer
 
     fun nextQ() {
         newWord(diff)
@@ -142,7 +163,7 @@ class GameActivity : AppCompatActivity() {
         displayGuesses(guessesNum)
         totalProblems ++
         correctGuessMade = false
-    }
+    }//nextQ
 
     fun next(view: View){
         mediaPlayer = MediaPlayer.create(this, R.raw.next)
@@ -153,7 +174,7 @@ class GameActivity : AppCompatActivity() {
 //        totalProblems ++
 //        correctGuessMade = false
         nextQ()
-    }
+    }//next
 
     fun newWord(difficulty: Int){
         val rand = Random()
@@ -168,14 +189,14 @@ class GameActivity : AppCompatActivity() {
             list[i].text = char.toString()
             list[i].visibility = View.INVISIBLE
         }
-    }
+    }//newWord
 
     fun answer(view: View){
         mediaPlayer = MediaPlayer.create(this, R.raw.answer)
         mediaPlayer.start()
         Toast.makeText(applicationContext, "You give up!", Toast.LENGTH_SHORT ).show()
         answer()
-    }
+    }//answer
 
     fun answer(){
 
@@ -184,7 +205,7 @@ class GameActivity : AppCompatActivity() {
         }
 
         Handler().postDelayed(this::nextQ, 1600)
-    }
+    }//answer
 
     fun numOfGuesses(difficulty : Int) {
         if (difficulty == 0) {
@@ -196,15 +217,15 @@ class GameActivity : AppCompatActivity() {
         else if (difficulty == 2) {
             guessesNum = 3
         }
-    }
+    }//numOfGuesses
 
     fun displayGuesses(guesses : Int) {
         guessesLeft!!.text = "Guesses Left: " + guesses
-    }
+    }//displayGuesses
 
     fun displayScore(scr: Int){
         score!!.text = "Score: " + scr
-    }
+    }//displayScore
 
     fun updateTimer(secondsLeft : Int) {
         val minutes = secondsLeft / 60
@@ -267,7 +288,7 @@ class GameActivity : AppCompatActivity() {
 
     fun clear(view : View) {
         guess?.setText("")
-    }
+    }//clear
 
 
 

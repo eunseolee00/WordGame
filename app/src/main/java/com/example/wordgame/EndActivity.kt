@@ -23,19 +23,19 @@ class EndActivity : AppCompatActivity() {
         play()
         displayScore(score)
 
-    }
+    }//onCreate
 
     fun play() {
         mediaPlayer = MediaPlayer.create(this, R.raw.finish)
         mediaPlayer.start()
-    }
+    }//play
 
     fun displayScore(scr: Int){
         result.text = score.toString()
-    }
+    }//displayScore
 
     fun playAgain(view : View){
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-    }
+    }//playAgain
 }
