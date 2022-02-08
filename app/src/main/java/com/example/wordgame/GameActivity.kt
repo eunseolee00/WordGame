@@ -1,6 +1,7 @@
 package com.example.wordgame
 
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -34,6 +35,7 @@ class GameActivity : AppCompatActivity() {
     var correctAnswer = ""
     var userAnswer = ""
     var correctGuessMade = false
+    lateinit var mediaPlayer: MediaPlayer
 
     //for test; substitute later?
     val easyWords = arrayOf("Moon", "Hand", "Seed", "Deal", "Coke")
@@ -98,6 +100,8 @@ class GameActivity : AppCompatActivity() {
     fun checkUserAnswer(){
         userAnswer = guess?.text.toString()
         if(guessesNum == 0){
+            mediaPlayer = MediaPlayer.create(this, R.raw.loser)
+            mediaPlayer.start()
             Toast.makeText(applicationContext, "out of guesses!", Toast.LENGTH_SHORT ).show()
         }else{
             if(!correctGuessMade){
@@ -109,6 +113,8 @@ class GameActivity : AppCompatActivity() {
                 correctGuessMade = true
                 correct++
                 displayScore(correct)
+                mediaPlayer = MediaPlayer.create(this, R.raw.correct)
+                mediaPlayer.start()
             }
             correctAnswer.forEachIndexed(){ i, char ->
                 userAnswer.forEach { userChar ->
@@ -149,6 +155,8 @@ class GameActivity : AppCompatActivity() {
     }
 
     fun answer(){
+        mediaPlayer = MediaPlayer.create(this, R.raw.answer)
+        mediaPlayer.start()
         list.forEach(){
             txt -> txt.visibility = View.VISIBLE
         }
@@ -202,6 +210,8 @@ class GameActivity : AppCompatActivity() {
                             totalProblems + " Correct", Toast.LENGTH_LONG
                 ).show()
                 start = false;
+                mediaPlayer = MediaPlayer.create(this, R.raw.finishGame)
+                mediaPlayer.start()
                 endGame()
             }//onFinish
         }.start() //CountDown
