@@ -36,6 +36,7 @@ class GameActivity : AppCompatActivity() {
     var correctAnswer = ""
     var userAnswer = ""
     var correctGuessMade = false
+    var gameEnd = true
     lateinit var mediaPlayer: MediaPlayer
     lateinit var duringMusic: MediaPlayer
 
@@ -250,15 +251,17 @@ class GameActivity : AppCompatActivity() {
             }//onTick
 
             override fun onFinish() {
-                timer!!.text = "0:00"
-                Toast.makeText(
-                    getApplicationContext(), "Your got " + correct + " out of " +
-                            totalProblems + " Correct", Toast.LENGTH_LONG
-                ).show()
-                duringMusic.isLooping = false
-                duringMusic.stop()
-                start = false;
-                endGame()
+                if(gameEnd){
+                    timer!!.text = "0:00"
+                    Toast.makeText(
+                        getApplicationContext(), "Your got " + correct + " out of " +
+                                totalProblems + " Correct", Toast.LENGTH_LONG
+                    ).show()
+                    duringMusic.isLooping = false
+                    duringMusic.stop()
+                    start = false;
+                    endGame()
+                }
             }//onFinish
         }.start() //CountDown
     }//gameTimer
@@ -290,6 +293,11 @@ class GameActivity : AppCompatActivity() {
         guess?.setText("")
     }//clear
 
+    @Override
+    override fun onBackPressed(){
+        gameEnd = false
+        super.onBackPressed()
+    }//onBackPressed
 
 
 }//GameActivity
