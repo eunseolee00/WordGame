@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/thirty"
-        android:iconTint="#454545"
-        android:title="30 Seconds"></item>
-    <item
         android:id="@+id/one"
+        android:iconTint="#454545"
         android:title="1 Minute"></item>
     <item
         android:id="@+id/two"
-        android:title="2 Minutes"></item>
+        android:title="2 Minute"></item>
+    <item
+        android:id="@+id/three"
+        android:title="3 Minutes"></item>
 
 </menu>

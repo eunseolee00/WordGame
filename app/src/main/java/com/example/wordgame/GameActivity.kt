@@ -209,13 +209,13 @@ class GameActivity : AppCompatActivity() {
 
     fun numOfGuesses(difficulty : Int) {
         if (difficulty == 0) {
-            guessesNum = 5
+            guessesNum = 20
         }
         else if (difficulty == 1) {
-            guessesNum = 4
+            guessesNum = 15
         }
         else if (difficulty == 2) {
-            guessesNum = 3
+            guessesNum = 10
         }
     }//numOfGuesses
 

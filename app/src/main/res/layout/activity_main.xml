@@ -58,7 +58,7 @@
             android:buttonTint="#99C1DE"
             android:fontFamily="sans-serif-smallcaps"
             android:onClick="howHard"
-            android:text="Hard (5+ Letters)"
+            android:text="Hard (5 Letters)"
             android:textColor="#0E0E0E"
             android:textSize="35sp" />
     </RadioGroup>

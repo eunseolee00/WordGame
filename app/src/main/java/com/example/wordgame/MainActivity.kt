@@ -34,9 +34,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.thirty -> time = 30000
             R.id.one -> time = 60000
             R.id.two -> time = 120000
+            R.id.three -> time = 180000
         }
         return true
     } //end onOptionsItemSelected
